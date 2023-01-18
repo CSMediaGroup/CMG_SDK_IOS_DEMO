@@ -23,7 +23,7 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //SDK配置
+    //SDK初始化
     [SZManager initWithAppId:@"9111184" appKey:@"00000" appDelegate:self enviroment:PRD_ENVIROMENT];
     
     //UI
@@ -37,14 +37,20 @@
 }
 
 
+
+
+//集成SDK后需要实现的代理方法
 #pragma mark - SZDelegate
+
+
+//获取用户信息，未登录则传nil
 -(SZUserInfo *)onGetUserInfo
 {
     LoginVC * vc = [LoginVC sharedLoginVC];
     return vc.currentAccount;
 }
 
-
+//分享
 -(void)onShareAction:(SZ_SHARE_PLATFORM)platform title:(NSString *)title image:(NSString *)imgurl desc:(NSString *)desc URL:(NSString *)url
 {
     switch (platform)
@@ -64,7 +70,7 @@
     }
 }
 
-
+//跳转登陆事件
 -(void)onLoginAction
 {
     LoginVC * vc = [LoginVC sharedLoginVC];
